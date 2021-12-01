@@ -31,6 +31,6 @@ public class Course {
     private CourseTypeEnum courseType;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-    @ToString.Exclude
+    @ToString.Exclude // musiałam to tu wrzucić bo inaczej mi sie krzaczyło
     List<Student> students;
 }

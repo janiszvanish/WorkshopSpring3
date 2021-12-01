@@ -1,9 +1,11 @@
 package com.skni.workshopspring3.repo;
 
+import com.skni.workshopspring3.repo.entity.CourseTypeEnum;
 import com.skni.workshopspring3.repo.entity.GenderEnum;
 import com.skni.workshopspring3.repo.entity.Student;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,4 +37,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Override
     void deleteById(Long aLong);
+
+    @Query(
+            value = "SELECT s.lastname FROM Student s WHERE s.id=?1",
+            nativeQuery = true)
+    String findStudentLastNameById(Long id);
 }

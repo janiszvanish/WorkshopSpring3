@@ -72,4 +72,9 @@ public class StudentService {
             return false;
         return true;
     }
+
+    // TUTAJ WYKORZYSTANIE MOJEGO PIEKNEGO QUERY Z REPO
+    public String getLastnameById(Long id){
+        return studentRepository.findStudentLastNameById(id);
+    }
 }

@@ -60,6 +60,7 @@ public class WorkshopSpring3Application {
 			System.out.println(studentService.getAllStudents());
 			System.out.println(studentService.deleteStudentById(student.getId()));
 			System.out.println(studentService.getAllStudents());
+			System.out.println(studentService.getLastnameById(studentFemale.getId()));
 
 		};
 	}
