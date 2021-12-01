@@ -1,8 +1,6 @@
 package com.skni.workshopspring3.repo.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +9,7 @@ import java.util.List;
 @Table(name = "course")
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Course {
     @Id
@@ -32,5 +31,6 @@ public class Course {
     private CourseTypeEnum courseType;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @ToString.Exclude
     List<Student> students;
 }

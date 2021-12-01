@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -27,50 +28,42 @@ public class StudentService {
                 .gender(gender)
                 .build();
 
-        //nie wiem czy equals wystarczy do sprawdzenia czy obiekt istnieje w bazie
-        if(!isStudentPresent(studentRepository.findAll(), student)){
             studentRepository.save(student);
             return student;
-        }
-        return null;
+
     }
 
-    private boolean isStudentPresent(List<Student> students, Student student){
-        for(Student s : students){
-            if(student.equals(s))
-                return true;
-        }
-        return false;
-    }
+//    private boolean isStudentPresent(List<Student> students, Student student){
+//        for(Student s : students){
+//            if(student.equals(s))
+//                return true;
+//        }
+//        return false;
+//    }
 
     public List<Student> findAllByLastName(String lastname) {
-        List<Student> students = studentRepository.findAllByLastname(lastname);
-        if(students.isEmpty())
-            return null;
-        return students;
+        return studentRepository.findAllByLastname(lastname);
     }
 
     public List<Student> getStudentByGenderAndByCourseType(GenderEnum gender, CourseTypeEnum courseType) {
-        var students = getStudentByGender(gender);
-        if(students.isEmpty())
-            return null;
-        for(Student s : students){
-            if(s.getCourse().getCourseType() != courseType)
-                students.remove(s);
+        var studentsGender = getStudentByGender(gender);
+
+        List<Student> students = new LinkedList<>();
+
+        for(Student s : studentsGender){
+            if(s.getCourse().getCourseType() == courseType)
+                students.add(s);
         }
         return students;
     }
 
     private List<Student> getStudentByGender(GenderEnum gender){
         var students = studentRepository.findAllByGender(gender);
-        if(students.isEmpty())
-            return null;
         return students;
     }
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
-        //nie chciało mi sie już ifa
     }
 
     public boolean deleteStudentById(Long id){
