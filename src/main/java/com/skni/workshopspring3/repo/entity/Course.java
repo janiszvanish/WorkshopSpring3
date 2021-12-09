@@ -33,4 +33,6 @@ public class Course {
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     @ToString.Exclude // musiałam to tu wrzucić bo inaczej mi sie krzaczyło
     List<Student> students;
+
+
 }

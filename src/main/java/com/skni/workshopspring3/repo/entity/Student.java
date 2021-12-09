@@ -1,5 +1,6 @@
 package com.skni.workshopspring3.repo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Student {
     @Column(name = "gender")
     private GenderEnum gender;
 
+    @JsonIgnore //krzaczyło się bez tej adnotacji
     @ManyToOne
     @JoinColumn(name = "course_id")
     Course course;

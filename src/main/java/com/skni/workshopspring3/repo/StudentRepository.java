@@ -5,8 +5,10 @@ import com.skni.workshopspring3.repo.entity.GenderEnum;
 import com.skni.workshopspring3.repo.entity.Student;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +34,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Override
     <S extends Student> S save(S entity);
 
-    @Override
-    Optional<Student> findById(Long aLong);
+//    @Override
+//    Optional<Student> findById(Long aLong);
 
     @Override
     void deleteById(Long aLong);
@@ -42,4 +44,12 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             value = "SELECT s.lastname FROM Student s WHERE s.id=?1",
             nativeQuery = true)
     String findStudentLastNameById(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(
+            value = "UPDATE Student s SET s.lastname = ?2 WHERE s.id = ?1",
+            nativeQuery = true
+    )
+    void merge(Long id, String lastname);
 }
