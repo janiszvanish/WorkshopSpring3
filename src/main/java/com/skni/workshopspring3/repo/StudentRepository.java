@@ -52,4 +52,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             nativeQuery = true
     )
     void merge(Long id, String lastname);
+    // nazwalam to merge bo jak sie kiedys uczylam Springa to kojarze, ze do updetow
+    // na bazie uzywalo sie EntityMenagera i metody .merge(Object);
+    // tu nie do konca wiedzialam jak w query pracowac z obiektem wiec dalam id i lastname
 }
